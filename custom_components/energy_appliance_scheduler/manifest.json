@@ -1,0 +1,19 @@
+{
+  "domain": "energy_appliance_scheduler",
+  "name": "Energy Appliance Scheduler",
+  "after_dependencies": [
+    "alexa_media"
+  ],
+  "dependencies": [
+    "energy_storage_control"
+  ],
+  "codeowners": [
+    "@Q14siX"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Q14siX/energy_appliance_scheduler",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/Q14siX/energy_appliance_scheduler/issues",
+  "version": "20260725.163920"
+}
