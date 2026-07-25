@@ -1,0 +1,232 @@
+{
+  "title": "Energy Appliance Scheduler",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Energy Appliance Scheduler",
+        "description": "Select the Energy Storage Control entities and configure Alexa devices, quiet hours and output volume. The settings form opens directly without an additional confirmation page.",
+        "data": {
+          "favorable_phase_sensor": "Current/next favorable-phase sensor",
+          "favorable_now_sensor": "Currently favorable binary sensor",
+          "price_sensor": "Current electricity-price sensor",
+          "alexa_media_players": "Alexa devices",
+          "alexa_message_type": "Alexa output type",
+          "alexa_quiet_hours_enabled": "Enable Alexa quiet hours",
+          "alexa_quiet_hours_start": "Alexa quiet hours start",
+          "alexa_quiet_hours_end": "Alexa quiet hours end",
+          "alexa_volume_percent": "Alexa message volume"
+        },
+        "data_description": {
+          "price_sensor": "Use the ESC current-price sensor. Price data is required for favorable-phase starts and is only informational for fixed-time starts; a missing price never blocks a fixed-time start.",
+          "alexa_media_players": "Activation, plan changes, cancellation, start and errors are spoken on these devices.",
+          "alexa_quiet_hours_enabled": "During quiet hours, messages remain in the Home Assistant log but are not spoken on Alexa devices.",
+          "alexa_quiet_hours_start": "Time from which Alexa output is suppressed. The interval may cross midnight.",
+          "alexa_quiet_hours_end": "Time at which Alexa output resumes.",
+          "alexa_volume_percent": "Before each message, the selected Alexa devices are set to this volume. The device volume remains at this level afterwards."
+        }
+      },
+      "alexa_texts": {
+        "title": "Alexa texts",
+        "description": "The default texts are ready to use and may be edited. Supported placeholder names: device, program, program_phrase, start_date, start_time, price, schedule and error.",
+        "data": {
+          "alexa_text_activated": "Start enabled",
+          "alexa_text_deactivated": "Start disabled",
+          "alexa_text_plan_changed": "Plan changed",
+          "alexa_text_started": "Appliance started",
+          "alexa_text_start_failed": "Start failed",
+          "alexa_text_confirmation_failed": "Operating state not confirmed"
+        }
+      }
+    },
+    "error": {
+      "at_least_one_alexa": "Select at least one Alexa device.",
+      "message_required": "Enter an Alexa text.",
+      "invalid_message_template": "The text contains an unsupported or malformed placeholder.",
+      "quiet_hours_identical": "The start and end of Alexa quiet hours must be different."
+    },
+    "abort": {
+      "single_instance_allowed": "This integration can only be configured once.",
+      "energy_storage_control_required": "Energy Storage Control must be installed and configured first.",
+      "alexa_media_required": "Alexa Media Player must be installed and configured first.",
+      "already_configured": "The integration is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure global settings",
+        "description": "Change the Energy Storage Control sources, Alexa targets, quiet hours, output volume or output type.",
+        "data": {
+          "favorable_phase_sensor": "Current/next favorable-phase sensor",
+          "favorable_now_sensor": "Currently favorable binary sensor",
+          "price_sensor": "Current electricity-price sensor",
+          "alexa_media_players": "Alexa devices",
+          "alexa_message_type": "Alexa output type",
+          "alexa_quiet_hours_enabled": "Enable Alexa quiet hours",
+          "alexa_quiet_hours_start": "Alexa quiet hours start",
+          "alexa_quiet_hours_end": "Alexa quiet hours end",
+          "alexa_volume_percent": "Alexa message volume"
+        },
+        "data_description": {
+          "alexa_quiet_hours_enabled": "During quiet hours, messages remain in the Home Assistant log but are not spoken on Alexa devices.",
+          "alexa_quiet_hours_start": "Time from which Alexa output is suppressed. The interval may cross midnight.",
+          "alexa_quiet_hours_end": "Time at which Alexa output resumes.",
+          "alexa_volume_percent": "Before each message, the selected Alexa devices are set to this volume. The device volume remains at this level afterwards.",
+          "price_sensor": "Use the ESC current-price sensor. Price data is required for favorable-phase starts and is only informational for fixed-time starts; a missing price never blocks a fixed-time start."
+        }
+      },
+      "alexa_texts": {
+        "title": "Edit Alexa texts",
+        "description": "Supported placeholder names: device, program, program_phrase, start_date, start_time, price, schedule and error.",
+        "data": {
+          "alexa_text_activated": "Start enabled",
+          "alexa_text_deactivated": "Start disabled",
+          "alexa_text_plan_changed": "Plan changed",
+          "alexa_text_started": "Appliance started",
+          "alexa_text_start_failed": "Start failed",
+          "alexa_text_confirmation_failed": "Operating state not confirmed"
+        }
+      }
+    },
+    "error": {
+      "at_least_one_alexa": "Select at least one Alexa device.",
+      "message_required": "Enter an Alexa text.",
+      "invalid_message_template": "The text contains an unsupported or malformed placeholder.",
+      "quiet_hours_identical": "The start and end of Alexa quiet hours must be different."
+    }
+  },
+  "config_subentries": {
+    "appliance": {
+      "title": "Appliance",
+      "step": {
+        "user": {
+          "title": "Add appliance",
+          "description": "Create a real Home Assistant device. A program entity is optional. No input helpers are created.",
+          "data": {
+            "name": "Appliance name",
+            "icon": "Icon",
+            "program_entity": "Optional program entity",
+            "program_behavior": "Program behavior"
+          },
+          "data_description": {
+            "program_entity": "Select a select or input_select entity whose options should be exposed by this integration.",
+            "program_behavior": "Choose whether program selection prepares the appliance before separate start actions, or whether selecting the program itself starts the appliance."
+          }
+        },
+        "controls": {
+          "title": "Start and operating-state control",
+          "description": "Configure the native Home Assistant actions and, optionally, an entity that confirms the appliance is running.",
+          "data": {
+            "prepare_actions": "Optional preparation actions",
+            "start_actions": "Start actions",
+            "operating_state_entity": "Optional operating-state entity",
+            "running_states": "States meaning running",
+            "start_confirmation_timeout": "Start confirmation timeout"
+          },
+          "data_description": {
+            "prepare_actions": "For example, switch the appliance on before selecting its program.",
+            "start_actions": "Required unless selecting the configured program starts the appliance.",
+            "running_states": "Comma-separated, for example: on,running,active. State comparison is case-insensitive.",
+            "start_confirmation_timeout": "After the start command, wait this long for a running state. Authorization is cleared after the command in all cases."
+          }
+        },
+        "reconfigure": {
+          "title": "Edit appliance",
+          "description": "Change the appliance name, icon and optional program source.",
+          "data": {
+            "name": "Appliance name",
+            "icon": "Icon",
+            "program_entity": "Optional program entity",
+            "program_behavior": "Program behavior"
+          }
+        },
+        "reconfigure_controls": {
+          "title": "Edit start and operating-state control",
+          "description": "Change actions, the optional operating-state entity and start confirmation.",
+          "data": {
+            "prepare_actions": "Optional preparation actions",
+            "start_actions": "Start actions",
+            "operating_state_entity": "Optional operating-state entity",
+            "running_states": "States meaning running",
+            "start_confirmation_timeout": "Start confirmation timeout"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Enter an appliance name.",
+        "duplicate_name": "An appliance with this name already exists.",
+        "start_actions_required": "Configure at least one start action, unless program selection itself starts the appliance.",
+        "invalid_actions": "At least one action is invalid or incomplete.",
+        "running_states_required": "Enter at least one state that means the appliance is running."
+      },
+      "abort": {
+        "reconfigure_successful": "The appliance configuration was updated successfully."
+      }
+    }
+  },
+  "selector": {
+    "alexa_message_type": {
+      "options": {
+        "tts": "Speech output",
+        "announce": "Announcement with signal"
+      }
+    },
+    "program_behavior": {
+      "options": {
+        "select_then_start": "Select program, then execute start actions",
+        "select_starts_device": "Selecting the program starts the appliance"
+      }
+    }
+  },
+  "entity": {
+    "switch": {
+      "start_authorization": {
+        "name": "Start authorization"
+      }
+    },
+    "select": {
+      "start_mode": {
+        "name": "Start mode",
+        "state": {
+          "next_favorable": "Current or next favorable phase",
+          "fixed_time": "Fixed time"
+        }
+      },
+      "program": {
+        "name": "Program"
+      }
+    },
+    "datetime": {
+      "fixed_start_time": {
+        "name": "Fixed start time"
+      }
+    },
+    "binary_sensor": {
+      "operating": {
+        "name": "Operating"
+      }
+    },
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "idle": "Ready",
+          "scheduled": "Scheduled",
+          "starting": "Starting",
+          "waiting_confirmation": "Waiting for operating state",
+          "started": "Started",
+          "start_unconfirmed": "Start not confirmed",
+          "cancelled": "Cancelled",
+          "waiting_data": "Waiting for price data",
+          "error": "Error"
+        }
+      },
+      "planned_start": {
+        "name": "Planned start"
+      },
+      "planned_price": {
+        "name": "Planned electricity price"
+      }
+    }
+  }
+}
