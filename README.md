@@ -4,6 +4,8 @@
 
 # Energy Appliance Scheduler
 
+<a href="https://buymeacoffee.com/q14six"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" width="200"></a>
+
 **Energy Appliance Scheduler** ist eine native Home-Assistant-Integration zur zeit- und strompreisabhängigen Steuerung von Waschmaschinen, Trocknern, Geschirrspülern und weiteren Geräten. Sie nutzt die von `energy_storage_control` bereitgestellten Günstigphasen und Strompreise und verwaltet mehrere Geräte innerhalb eines einzigen Integrationseintrags.
 
 Die Integration legt **keine `input_boolean`-, `input_select`-, `input_datetime`- oder sonstigen Helfer** an. Alle Bedienelemente werden als native Home-Assistant-Entitäten erzeugt.
